@@ -1,0 +1,57 @@
+<form [formGroup]="form">
+  <table>
+    <tbody>
+      <ng-container *ngFor="let row of rows.controls; let i = index" formArrayName="rows">
+        <tr [formGroupName]="i">
+          <td>
+            <select formControlName="filtertype">
+              <option value="title">Title</option>
+              <option value="author">Author</option>
+              <option value="subject">Subject</option>
+              <option value="dateIssued">Date Issued</option>
+            </select>
+          </td>
+          <td>
+            <select formControlName="relationalOperator">
+              <option value="contains">Contains</option>
+              <option value="equal">Equal</option>
+              <option value="authority">ID</option>
+              <option value="notcontains">No Contains</option>
+              <option value="notequals">Is Not</option>
+              <option value="notauthority">Is Not ID</option>
+            </select>
+          </td>
+          <td>
+            <input type="text" formControlName="filter">
+          </td>
+          <td>
+            <button type="button" (click)="removeRow(i)">Remove</button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <div class="buttons">
+    <button type="button" (click)="addRow()">Add Filter</button>
+    <button type="button" (click)="printFormValues()">Apply Filters</button>
+    <button type="button" (click)="resetFilters()">Reset Filters</button>
+  </div>
+</form>
+<table class="result-table" *ngIf="filteredData.length > 0">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Subject</th>
+      <th>Date Issued</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredData">
+      <td>{{ item.title }}</td>
+      <td>{{ item.author }}</td>
+      <td>{{ item.subject }}</td>
+      <td>{{ item.dateIssued }}</td>
+    </tr>
+  </tbody>
+</table>
