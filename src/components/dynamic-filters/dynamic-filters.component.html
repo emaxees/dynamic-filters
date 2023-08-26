@@ -25,7 +25,7 @@
             <input type="text" formControlName="filter">
           </td>
           <td>
-            <button type="button" (click)="removeRow(i)">Remove</button>
+            <button type="button" *ngIf="showRemoveButton(i)" (click)="removeRow(i)">Remove</button>
           </td>
         </tr>
       </ng-container>

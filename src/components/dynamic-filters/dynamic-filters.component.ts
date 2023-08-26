@@ -86,8 +86,18 @@ export class DynamicFiltersComponent {
     this.filteredData = this.mockData;
   }
 
+  getFilterString(filters:any) {
+    return filters.map((filter:any) => Object.keys(filter).map((key) => filter[key].toUpperCase()).join('_')).join('&');
+  }
+
+  showRemoveButton(i:number) {
+    if (i > 0) return this.rows.controls.map(row => row.value).length > 1;
+    return false;
+  }
+
   printFormValues() {
     const filters = this.rows.controls.map(row => row.value);
+    console.log(this.getFilterString(filters))
     this.filteredData = this.filterData(filters);
   }
 }
