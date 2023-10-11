@@ -27,17 +27,20 @@ export class DynamicFiltersComponent {
   }
 
   generateMockData(count: number) {
+    const subjects = ['Water', 'Soil', 'Atmosphere', 'Temperature', 'Forest'];
+  
     for (let i = 1; i <= count; i++) {
+      const randomSubjectIndex = Math.floor(Math.random() * subjects.length);
       this.mockData.push({
         id: i,
         title: `Book ${i}`,
         author: `Author ${String.fromCharCode(65 + (i % 26))}`,
-        subject: `Subject ${String.fromCharCode(65 + (i % 26))}`,
+        subject: subjects[randomSubjectIndex],
         dateIssued: `2022-01-${String(i).padStart(2, '0')}`,
       });
     }
-    this.filteredData =  this.mockData;
-  }
+    this.filteredData = this.mockData;
+  }  
 
   addRow() {
     const newRow = this.fb.group({
@@ -56,7 +59,6 @@ export class DynamicFiltersComponent {
     return this.form.get('rows') as FormArray;
   }
   
-
   filterData(filters: any[]): any[] {
     const operatorMappings: any = {
       contains: (value:string, filter:string) => value.includes(filter),
