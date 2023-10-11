@@ -22,7 +22,16 @@
             </select>
           </td>
           <td>
-            <input type="text" formControlName="filter">
+            <ng-container [ngSwitch]="row.get('filtertype')?.value">
+              <input *ngSwitchDefault type="text" formControlName="filter" />
+              <select *ngSwitchCase="'subject'" formControlName="filter">
+                <option value="Water">Water</option>
+                <option value="Soil">Soil</option>
+                <option value="Atmosphere">Atmosphere</option>
+                <option value="Temperature">Temperature</option>
+                <option value="Forest">Forest</option>
+              </select>
+            </ng-container>
           </td>
           <td>
             <button type="button" *ngIf="showRemoveButton(i)" (click)="removeRow(i)">Remove</button>
